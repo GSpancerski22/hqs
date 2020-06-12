@@ -39,4 +39,4 @@
         </div>
     </div>
 </form>
-<iframe name="personagens" width="100%" height="300px" src="adicionarPersonagem.php"></iframe>                   
+<iframe name="personagens" width="100%" height="300px" src="adicionarPersonagem.php?quadrinho_id=<?=$id;?>"></iframe>                   

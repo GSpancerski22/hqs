@@ -6,6 +6,8 @@
     }
 
     include "config/conexao.php";
+
+    $quadrinho_id = $_GET["quadrinho_id"] ?? "";
     //verificar se foi dado o post 
     if ($_POST){
 
@@ -45,13 +47,17 @@
     <title>Document</title>
 </head>
 <body>
-    <h4>aedw</h4>
     <table class="table table-hover table-striped table-bordered">
         <thead>
-        
+            <tr>
+                <td>Personagens</td>
+                <td>Opções</td>
+            </tr>
         </thead>
         <?php 
-            $sql = "SELECT q.id qid, p.id pid, p.nome
+            $sql = 
+            "SELECT 
+                q.id qid, p.id pid, p.nome
             FROM 
                 quadrinho_personagem qp 
             INNER JOIN
@@ -69,10 +75,25 @@
 
             while($dados = $consulta->fetch(PDO::FETCH_OBJ)){
                 ?>
+                <tr>
+                    <td><?= $dados->nome;?></td>
+                   <td>
+                        <a href="javascript:excluir(<?=$dados->pid;?>,<?=$dados->qid?>)" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                   </td> 
+                </tr>
                 <?php
             }
     ?>
     </table>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script>
+        function excluir(personagem_id,quadrinho_id){
+            if (confirm("Deseja realmente excluir este personagem?")){
+                location.href="excluirPersonagem.php?personagem_id="+personagem_id+"&quadrinho_id"+quadrinho_id;
+            }
+        }
+    </script>
+    
 </body>
 </html>
